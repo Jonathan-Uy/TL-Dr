@@ -1,1 +1,3 @@
-# hackmit2022
+# HackMIT 2022
+
+Alex Yu, Danny Foley, Jonathan Uy, and Lincoln Saha
