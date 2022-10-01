@@ -1,0 +1,22 @@
+{
+  "name": "hackmit2022",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "app": "cd app && npm start",
+    "ts": "cd api/typescript && npm start",
+    "dev": "concurrently \"npm run app\" \"npm run ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uyxela/hackmit2022.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uyxela/hackmit2022/issues"
+  },
+  "homepage": "https://github.com/uyxela/hackmit2022#readme"
+}
