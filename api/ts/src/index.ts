@@ -1,11 +1,23 @@
 import express from "express";
 import mongoose from "mongoose";
+import cors from "cors";
 
 // Routers
+import AuthRouter from "./routes/auth";
+import FileRouter from "./routes/file";
+import PatientRouter from "./routes/patient";
+import UserRouter from "./routes/user";
 
 import "dotenv/config";
 
 const app = express();
+app.use(cors());
+app.use(express.json());
+
+app.use("/auth", AuthRouter);
+app.use("/file", FileRouter);
+app.use("/patient", PatientRouter);
+app.use("/user", UserRouter);
 
 if (process.env.MONGODB_URI) {
   mongoose

@@ -2,6 +2,7 @@ import { Router } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user";
 import { signJWT } from "../utils";
+import mongoose from "mongoose";
 
 const AuthRouter = Router();
 
@@ -22,7 +23,10 @@ AuthRouter.post("/register", async (req, res) => {
 
   const hash = await bcrypt.hash(password, await bcrypt.genSalt(10));
 
+  const _id = new mongoose.Types.ObjectId();
+
   const user = new User({
+    _id,
     name,
     email,
     hash,
@@ -48,11 +52,14 @@ AuthRouter.post("/login", async (req, res) => {
 
   if (!isMatch) return res.status(400).send({ error: "Incorrect password" });
 
-  console.log(user);
+  // console.log(user);
 
   res.status(200).send({
-    name: user.name,
-    email: user.email,
+    user: {
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+    },
     token: signJWT({
       userid: user._id,
     }),
