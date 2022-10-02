@@ -16,7 +16,8 @@
     "express": "^4.18.1",
     "express-fileupload": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.6.3"
+    "mongoose": "^6.6.3",
+    "openai": "^3.0.0"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
