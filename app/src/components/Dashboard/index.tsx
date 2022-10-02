@@ -77,23 +77,21 @@ function Dashboard() {
     }
   };
 
-  const onDownload = () => {
-    downloadDocument(user.token, selectedFile!._id).then((response) => {
-      const link = document.createElement("a");
-      link.target = "_blank";
-      link.download = "download.pdf";
-      link.href = URL.createObjectURL(
-        new Blob([response], { type: "application/pdf" })
-      );
-      link.click();
-    });
-  };
+  // const onDownload = () => {
+  //   downloadDocument(user.token, selectedFile!._id).then((response) => {
+  //     const link = document.createElement("a");
+  //     link.target = "_blank";
+  //     link.download = "download.pdf";
+  //     link.href = URL.createObjectURL(new Blob([response]));
+  //     link.click();
+  //   });
+  // };
 
   const onSubmit = () => {
     uploadFile(user.token, documentFile)
       .then((response) => {
         console.log(response);
-        setFiles([response, ...files]);
+        setFiles([response._doc, ...files]);
         toast({
           title: "File uploaded.",
           description: `Your file ${response.name} has been uploaded.`,
@@ -195,15 +193,15 @@ function Dashboard() {
                           <MenuItem onClick={patientSummaryModalOnOpen}>
                             Generate summary/translation
                           </MenuItem>
-                          <MenuItem onClick={shareModalOnOpen}>
+                          {/* <MenuItem onClick={shareModalOnOpen}>
                             Share document
-                          </MenuItem>
+                          </MenuItem> */}
                           <MenuItem onClick={emailModalOnOpen}>
                             Email document
                           </MenuItem>
-                          <MenuItem onClick={onDownload}>
+                          {/* <MenuItem onClick={onDownload}>
                             Download document
-                          </MenuItem>
+                          </MenuItem> */}
                           <MenuItem color="red" onClick={deleteModalOnOpen}>
                             Delete document
                           </MenuItem>

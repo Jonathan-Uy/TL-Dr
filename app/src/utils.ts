@@ -93,7 +93,7 @@ export async function uploadFile(token: string, file: File) {
 
 export async function generateHandoff(token: string, fileId: string) {
   const { data } = await axios.post(
-    `${url}/file/generate-report`,
+    `${url}/file/generate-handoff`,
     { fileId: fileId },
     {
       headers: {
@@ -112,7 +112,7 @@ export async function generatePatientSummary(
 ) {
   if (language) {
     const { data } = await axios.post(
-      `${url}/file/generate-patient-summary`,
+      `${url}/file/generate-summary`,
       { fileId: fileId, language: language },
       {
         headers: {
@@ -124,7 +124,7 @@ export async function generatePatientSummary(
     return data;
   } else {
     const { data } = await axios.post(
-      `${url}/file/generate-patient-summary`,
+      `${url}/file/generate-summary`,
       { fileId: fileId },
       {
         headers: {
@@ -193,11 +193,11 @@ export async function deleteDocument(token: string, fileId: string) {
 }
 
 export async function downloadDocument(token: string, fileId: string) {
-  const { data } = await axios.post(
+  const response = await axios.post(
     `${url}/file/download`,
     { fileId: fileId, responseType: "blob" },
     { headers: { Authorization: `Bearer ${token}` } }
   );
 
-  return data;
+  return response;
 }

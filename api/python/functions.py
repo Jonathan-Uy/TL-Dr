@@ -1,5 +1,6 @@
 from base64 import b64decode    # Used in Step 1
 from datetime import datetime   # Used to give unique file names
+from cleantext import clean
 import PyPDF2                   # Used in Step 2
 
 # MongoDB stores PDFs as base64 strings
@@ -42,4 +43,5 @@ def grab_text(file_name):
 # We may choose to use an existing solution, or employ
 # heuristics specific to medical note formatting.
 def clean_up(dirty_text):
-    return " ".join(dirty_text.split())
+    
+    return clean(" ".join(dirty_text.split()))

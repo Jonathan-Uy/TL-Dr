@@ -20,7 +20,7 @@ export async function askQuestion(longText: string, question: string) {
     prompt: gptPrompt,
     temperature: 0.1,
     // Increase max_tokens for demo
-    // max_tokens: 2048,
+    max_tokens: 512,
   });
   return completion!.data!.choices![0].text;
 }
@@ -101,7 +101,7 @@ export async function translate(summary: string, language: string) {
     prompt: gptPrompt,
     temperature: 0.1,
     // Increase max_tokens for demo
-    // max_tokens: 2048,
+    max_tokens: 512,
   });
   return completion!.data!.choices![0].text;
 }
@@ -126,5 +126,7 @@ export async function createPatientReportText(
     report.translation = await translate(report.summary, language);
   }
 
-  return report;
+  console.log("hi");
+
+  return [report, report.title];
 }
