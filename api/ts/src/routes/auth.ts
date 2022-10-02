@@ -61,7 +61,7 @@ AuthRouter.post("/login", async (req, res) => {
       email: user.email,
     },
     token: signJWT({
-      userid: user._id,
+      _id: user._id,
     }),
   });
 });

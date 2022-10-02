@@ -13,8 +13,9 @@ const fileSchema = new mongoose.Schema<fileType>({
   },
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   viewers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Patient" }],
-  path: String,
   type: String,
+  size: Number,
+  data: String,
 });
 
 const File = mongoose.model<fileType>("File", fileSchema);

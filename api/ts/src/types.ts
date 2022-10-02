@@ -15,8 +15,9 @@ export type fileType = {
   created: Date;
   owner: Types.ObjectId;
   viewers: [Types.ObjectId];
-  path: string;
   type: string;
+  size: number;
+  data: string;
 };
 
 export type patientType = {
