@@ -16,6 +16,7 @@ function Login() {
   const onSubmit = () => {
     login(email, password)
       .then((response) => {
+        response.user.token = response.token;
         setUser(response.user);
         window.location.assign("/");
       })
@@ -48,7 +49,7 @@ function Login() {
           marginBottom: "30px",
         }}
       >
-        HandJob
+        TL;Dr.
       </p>
       <Stack direction="column" alignItems="center">
         <Input

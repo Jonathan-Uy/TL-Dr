@@ -63,7 +63,7 @@ function Register() {
           marginBottom: "30px",
         }}
       >
-        HandJob
+        TL;Dr.
       </p>
       <Stack direction="column" alignItems="center">
         <Input

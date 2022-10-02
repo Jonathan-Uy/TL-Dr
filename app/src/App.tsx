@@ -15,6 +15,7 @@ function App() {
   useEffect(() => {
     if (getFromStorage("token") !== null) {
       getUser(getFromStorage("token")!).then((response) => {
+        console.log(response);
         setUser(response as User);
       });
     }

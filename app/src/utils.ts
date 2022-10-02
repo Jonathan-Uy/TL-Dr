@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:5000";
+export const url = "http://localhost:5000";
 
 export function getFromStorage(key: string) {
   return localStorage.getItem(key);
@@ -56,6 +56,27 @@ export async function getUser(token: string) {
   const { data } = await axios.get(`${url}/user/`, {
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return data;
+}
+
+export async function getFiles(token: string) {
+  const { data } = await axios.get(`${url}/file/`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return data;
+}
+
+export async function uploadFile(token: string, formData: FormData) {
+  const { data } = await axios.post(`${url}/file/upload`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
     },
   });
 

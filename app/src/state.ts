@@ -1,6 +1,7 @@
 import { atom } from "recoil";
+import { User } from "./types";
 
-export const userState = atom({
+export const userState = atom<User>({
   key: "userState",
-  default: {},
+  default: {} as User,
 });
