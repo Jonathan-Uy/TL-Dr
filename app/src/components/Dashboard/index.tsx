@@ -90,14 +90,7 @@ function Dashboard() {
   const onSubmit = () => {
     uploadFile(user.token, documentFile)
       .then((response) => {
-        console.log(response);
-        setFiles([response._doc, ...files]);
-        toast({
-          title: "File uploaded.",
-          description: `Your file ${response.name} has been uploaded.`,
-          status: "success",
-          isClosable: true,
-        });
+        window.location.reload();
       })
       .catch(() => {
         toast({

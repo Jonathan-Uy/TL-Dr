@@ -15,18 +15,7 @@ import { FileType } from "../../types";
 import { generatePatientSummary } from "../../utils";
 
 // top 10 most spoken languages
-const languages = [
-  "Chinese",
-  "Spanish",
-  "English",
-  "Hindi",
-  "Arabic",
-  "Portuguese",
-  "Bengali",
-  "Russian",
-  "Japanese",
-  "Punjabi",
-];
+const languages = ["Spanish", "French", "Italian", "German"];
 
 type PatientSummaryModalProps = {
   token: string;
