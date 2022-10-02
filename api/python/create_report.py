@@ -44,3 +44,25 @@ def write_report(file_name, text_content):
 
     # Write to file
     pdf.output(file_name, 'F')
+
+def write_translated_report(file_name, text_content):
+    pdf = FPDF()
+    pdf.add_page()
+
+    # Create title and subtitle
+    pdf.set_font('Times', 'B', 36)
+    pdf.cell(0, 0, text_content['title'], 0, 1)
+    pdf.set_font('Times', 'I', 18)
+    pdf.cell(0, 20, text_content['subtitle'] + ' ' + text_content['date'], 0, 1)
+
+    # Write summary
+    pdf.set_font('Times', 'B', 18)
+    pdf.cell(0, 30, 'Quick Summary', 0, 1)
+    pdf.set_font('Times', '', 18)
+    pdf.multi_cell(0, 8, text_content['summary'], 0, 1)
+
+    # Write translation
+    pdf.set_font('Arial', 'B', 18)
+    pdf.cell(0, 30, 'Translation', 0, 1)
+    pdf.set_font('Times', '', 18)
+    pdf.multi_cell(0, 8, text_content['translation'], 0, 1)
