@@ -14,38 +14,41 @@ import {
   Th,
   Td,
   useToast,
+  MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  Link,
 } from "@chakra-ui/react";
 import { url, uploadFile } from "../../utils";
 import Navbar from "../Navbar.tsx";
 import { useEffect, useState } from "react";
 import { FileType } from "../../types";
+import { HamburgerIcon } from "@chakra-ui/icons";
 
 function Dashboard() {
   const [user] = useRecoilState(userState);
   const [files, setFiles] = useState<FileType[]>([]);
   const [documentFile, setDocumentFile] = useState<File>({} as File);
+  const [selectedFile, setSelectedFile] = useState<FileType | null>(null);
   const toast = useToast();
 
   useEffect(() => {
     if (!isEmpty(user)) {
-      getFiles(user.token).then((response) => setFiles(response.files));
+      getFiles(user.token).then((response) => {
+        setFiles(response);
+      });
     }
   }, [user]);
 
-  const handleSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setDocumentFile(e.target.files![0]);
+  const handleSelectFile = (file: File) => {
+    setDocumentFile(file);
   };
 
   const onSubmit = () => {
-    if (uploadFile === null) {
-      return;
-    }
-
-    let formData = new FormData();
-    formData.append("document", documentFile);
-
-    uploadFile(user.token, formData)
+    uploadFile(user.token, documentFile)
       .then((response) => {
+        console.log(response);
         setFiles([response, ...files]);
         toast({
           title: "File uploaded.",
@@ -83,7 +86,7 @@ function Dashboard() {
         alignItems="flex-start"
         paddingTop="40px"
       >
-        <VStack width="60%" alignItems="flex-start">
+        <VStack width="70%" alignItems="flex-start">
           <h1
             style={{
               fontSize: "30px",
@@ -97,22 +100,39 @@ function Dashboard() {
             <Table>
               <Thead>
                 <Tr>
-                  <Th width="60%">Name</Th>
-                  <Th width="15%">Size</Th>
+                  <Th width="40%">Name</Th>
+                  <Th width="15%">Type</Th>
+                  <Th width="15%">Size (KB)</Th>
                   <Th width="25%">Date created</Th>
+                  <Th width="5%">Actions</Th>
                 </Tr>
-                {files.map((file) => (
-                  <Tr>
-                    <Td>{file.name}</Td>
-                    <Td>{file.size}</Td>
-                    <Td>{file.created.toString()}</Td>
+                {files.map((file, index) => (
+                  <Tr key={index}>
+                    <Td>
+                      <Link href={`/document/${file._id}`}>{file.name}</Link>
+                    </Td>
+                    <Td>{file.type}</Td>
+                    <Td>{Math.round((file.size / 1000.0) * 10) / 10}</Td>
+                    <Td>{new Date(file.created).toLocaleDateString()}</Td>
+                    <Td>
+                      <Menu>
+                        <MenuButton onClick={() => setSelectedFile(file)}>
+                          <HamburgerIcon />
+                        </MenuButton>
+                        <MenuList>
+                          <MenuItem>Generate handoff document</MenuItem>
+                          <MenuItem>Generate summary/translation</MenuItem>
+                          <MenuItem color="red">Delete document</MenuItem>
+                        </MenuList>
+                      </Menu>
+                    </Td>
                   </Tr>
                 ))}
               </Thead>
             </Table>
           </TableContainer>
         </VStack>
-        <VStack width="30%" alignItems="flex-start">
+        <VStack width="20%" alignItems="flex-start">
           <h1
             style={{
               fontSize: "30px",
@@ -134,7 +154,7 @@ function Dashboard() {
               height="50px"
               padding="9px"
               marginBottom="20px"
-              onChange={(e) => handleSelectFile}
+              onChange={(e) => handleSelectFile(e.target.files![0])}
             />
             <Button colorScheme="teal" onClick={onSubmit}>
               Upload

@@ -16,8 +16,10 @@ function Login() {
   const onSubmit = () => {
     login(email, password)
       .then((response) => {
-        response.user.token = response.token;
-        setUser(response.user);
+        setUser({
+          ...response.user,
+          token: response.token,
+        });
         window.location.assign("/");
       })
       .catch(() =>

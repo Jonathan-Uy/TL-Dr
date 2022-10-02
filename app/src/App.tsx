@@ -7,7 +7,6 @@ import { getFromStorage, getUser } from "./utils";
 import { useSetRecoilState } from "recoil";
 import { userState } from "./state";
 import { useEffect } from "react";
-import { User } from "./types";
 
 function App() {
   const setUser = useSetRecoilState(userState);
@@ -15,8 +14,10 @@ function App() {
   useEffect(() => {
     if (getFromStorage("token") !== null) {
       getUser(getFromStorage("token")!).then((response) => {
-        console.log(response);
-        setUser(response as User);
+        setUser({
+          ...response,
+          token: getFromStorage("token")!,
+        });
       });
     }
   }, [setUser]);

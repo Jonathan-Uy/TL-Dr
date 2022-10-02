@@ -72,13 +72,21 @@ export async function getFiles(token: string) {
   return data;
 }
 
-export async function uploadFile(token: string, formData: FormData) {
-  const { data } = await axios.post(`${url}/file/upload`, formData, {
+export async function uploadFile(token: string, file: File) {
+  let formData = new FormData();
+  formData.append("files", file);
+
+  const config = {
+    method: "post",
+    url: `${url}/file/upload`,
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data",
     },
-  });
+    data: formData,
+  };
+
+  const { data } = await axios(config);
 
   return data;
 }

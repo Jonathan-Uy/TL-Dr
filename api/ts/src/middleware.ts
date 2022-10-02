@@ -12,13 +12,22 @@ export const tokenAuthenticator = async (
 
   if (!token) return res.status(401).send({ error: "Unauthorized" });
 
-  const decodedToken = verifyJWT(token) as { userid: string };
+  const decodedToken = verifyJWT(token) as { _id: string };
 
-  const user = await User.findById(decodedToken.userid);
+  const user = await User.findById(decodedToken._id);
 
   if (!user) return res.status(400).send({ error: "User not found" });
 
   req.user = user;
 
+  next();
+};
+
+export const logger = (
+  req: express.Request,
+  _: express.Response,
+  next: express.NextFunction
+) => {
+  console.log(`${req.method} ${req.path}`);
   next();
 };
