@@ -3,20 +3,30 @@
 import PyPDF2
 import os
 
-rel_path = os.path.realpath(os.path.join(os.path.dirname(__file__)\
-    , '..','..','samples','1.pdf'))
+def process_pdf(pdf_name):
 
-pdffileobj = open(rel_path,'rb')
+    rel_path = os.path.realpath(os.path.join(os.path.dirname(__file__)\
+        , '..','..','samples',pdf_name))
 
-pdfreader = PyPDF2.PdfFileReader(pdffileobj)
+    pdffileobj = open(rel_path,'rb')
 
-numpages = pdfreader.numPages
+    pdfreader = PyPDF2.PdfFileReader(pdffileobj)
 
-pageobj = pdfreader.getPage(0)
+    numpages = pdfreader.numPages
 
-text = pageobj.extractText()
+    full_txt = ''
 
-print(text)
+    for i in range(numpages):
 
-pdffileobj.close()
+        pageobj = pdfreader.pages[i]
+
+        page_txt = pageobj.extractText()
+
+        full_txt += page_txt
+
+    pdffileobj.close()
+
+    full_txt = full_txt.replace('\n','')
+
+    return full_txt
 
