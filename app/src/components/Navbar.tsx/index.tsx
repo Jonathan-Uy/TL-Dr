@@ -22,7 +22,7 @@ function Navbar() {
         justifyContent="space-evenly"
       >
         <Link href="/">Dashboard</Link>
-        <Link href="/patients">Patients</Link>
+        {/* <Link href="/patients">Patients</Link> */}
         <Link onClick={logout}>Logout</Link>
       </HStack>
     </Stack>

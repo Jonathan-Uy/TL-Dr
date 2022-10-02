@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "app": "cd app && npm start",
-    "api": "cd api/ts && npm start",
-    "dev": "concurrently \"npm run app\" \"npm run api\""
+    "ts": "cd api/ts && npm start",
+    "py": "cd api/python && uvicorn main:app --reload",
+    "dev": "concurrently \"npm run app\" \"npm run ts\" \"npm run py\""
   },
   "repository": {
     "type": "git",

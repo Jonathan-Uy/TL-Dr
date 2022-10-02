@@ -15,7 +15,7 @@ def base64_to_cleantext(base64_pdf):
 def write_pdf(base64_pdf):
     bytes = b64decode(base64_pdf, validate=True)
     cur_time = datetime.now().strftime("%d-%m-%Y_%H-%M-%S")
-    file_name = './api/python/files/' + cur_time + '.pdf'
+    file_name = './files/' + cur_time + '.pdf'
     f = open(file_name, 'wb')
     f.write(bytes)
     f.close()

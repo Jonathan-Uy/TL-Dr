@@ -14,7 +14,6 @@ const fileSchema = new mongoose.Schema<fileType>({
   owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   viewers: [{ type: mongoose.Schema.Types.ObjectId, ref: "Patient" }],
   type: String,
-  size: Number,
   data: String,
 });
 

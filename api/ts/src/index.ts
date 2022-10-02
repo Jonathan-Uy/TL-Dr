@@ -10,8 +10,6 @@ import FileRouter from "./routes/file";
 import PatientRouter from "./routes/patient";
 import UserRouter from "./routes/user";
 
-import "dotenv/config";
-
 const app = express();
 app.use(cors());
 app.use(express.json());

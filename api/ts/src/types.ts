@@ -16,7 +16,6 @@ export type fileType = {
   owner: Types.ObjectId;
   viewers: [Types.ObjectId];
   type: string;
-  size: number;
   data: string;
 };
 

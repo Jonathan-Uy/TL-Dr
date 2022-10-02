@@ -90,3 +90,114 @@ export async function uploadFile(token: string, file: File) {
 
   return data;
 }
+
+export async function generateHandoff(token: string, fileId: string) {
+  const { data } = await axios.post(
+    `${url}/file/generate-report`,
+    { fileId: fileId },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return data;
+}
+
+export async function generatePatientSummary(
+  token: string,
+  fileId: string,
+  language?: string
+) {
+  if (language) {
+    const { data } = await axios.post(
+      `${url}/file/generate-patient-summary`,
+      { fileId: fileId, language: language },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return data;
+  } else {
+    const { data } = await axios.post(
+      `${url}/file/generate-patient-summary`,
+      { fileId: fileId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    return data;
+  }
+}
+
+export async function getOtherDoctors(token: string) {
+  const { data } = await axios.get(`${url}/user/other`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return data;
+}
+
+export async function shareDocument(
+  token: string,
+  fileId: string,
+  userId: string
+) {
+  const { data } = await axios.post(
+    `${url}/file/share`,
+    { fileId: fileId, userId: userId },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return data;
+}
+
+export async function emailDocument(
+  token: string,
+  fileId: string,
+  email: string
+) {
+  const { data } = await axios.post(
+    `${url}/file/email`,
+    { fileId: fileId, email: email },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return data;
+}
+
+export async function deleteDocument(token: string, fileId: string) {
+  const { data } = await axios.post(
+    `${url}/file/delete`,
+    { fileId: fileId },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return data;
+}
+
+export async function downloadDocument(token: string, fileId: string) {
+  const { data } = await axios.post(
+    `${url}/file/download`,
+    { fileId: fileId, responseType: "blob" },
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+
+  return data;
+}

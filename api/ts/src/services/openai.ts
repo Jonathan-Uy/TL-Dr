@@ -1,8 +1,10 @@
 import { Configuration, OpenAIApi } from "openai";
 
-const openai = new OpenAIApi(new Configuration({ apiKey: process.env.OPENAI_API_KEY }));
-// Temporary: Make an API call to our Python "PDF -> String" program instead
-const medicalText = "Relevant Complaint(s) and Concerns:\nUpon arrival: Patient presented with five days of increased urinary frequency, urgency and dysuria as well as 48 hours of fever and rigors. He was hypotensive and tachycardic upon arrival to the emergency department.The internal medicine service was consulted. The following issues were addressed during the hospitalization:\n\nSummary Course in Hospital (Issues Addressed):\nFever and urinary symptoms: A preliminary diagnosis of pyelonephritis was established. Other causes of fever were possible but less likely. The patient was hypotensive on initial assessment with a blood pressure of 80/40. Serum lactate was elevated at 6.1. A bolus of IV fluid was administered (1.5L) but the patient remained hypotensive. Our colleagues from ICU were consulted. An arterial line was inserted for hemodynamic monitoring. Hemodynamics were supported with levophed and crystalloids. Piptazo was started after blood and urine cultures were drawn. After 12 hours serum lactate had normalized and hemodynamics had stabilized. Blood cultures were positive for E.Coli that was sensitive to all antibiotics. The patient was stepped down to oral ciprofloxacin to complete a total 14 day course of antibiotics. On further review it was learned that the patient has been experiencing symptoms of prostatism for the last year. An abdominal ultrasound performed for elevated liver enzymes and acute kidney injury confirmed a severely enlarged prostate. Urinary retention secondary to BPH was the likely underlying mechanism that contributed to the development of pyelonephritis in this patient. He was started on Tamsulosin 0.4mg PO qhs and tolerated it well with no orthostatic intolerance. Post void residuals show 150-200cc of retained urine in the bladder. An outpatient referral to Urology has been requested by our team.\n\nElevated liver enzymes and creatinine. Both of these were thought to be related to end organ hypoperfusion in the setting of sepsis. Values improved with the administration of IV fluid and stabilization of the patients hemodynamics. Abdominal ultrasound with doppler flow and urine analysis ruled out other possible etiologies. Liver enzymes remain slightly above normal values at the time of discharge. We ask that the patients' family physician repeat these tests in 2 weeks' time to ensure complete resolution.";
+const openai = new OpenAIApi(
+  new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+  })
+);
 
 // ================== Part One: Summarizing Patient Handoff Form ================== //
 
@@ -11,19 +13,17 @@ const medicalText = "Relevant Complaint(s) and Concerns:\nUpon arrival: Patient 
  * Print the result itself using this code snippet:
  * ( OUTPUT ).then(function(res) {console.log(res);});
  */
-export async function askQuestion(longText: string, question: string){
-    const gptPrompt = longText + "\n\n" + question;
-    const completion = await openai.createCompletion({
-        model: "text-davinci-002",
-        prompt: gptPrompt,
-        temperature: 0.1,
-        // Increase max_tokens for demo
-        // max_tokens: 2048,
-    })
-    return completion!.data!.choices![0].text;
+export async function askQuestion(longText: string, question: string) {
+  const gptPrompt = longText + "\n\n" + question;
+  const completion = await openai.createCompletion({
+    model: "text-davinci-002",
+    prompt: gptPrompt,
+    temperature: 0.1,
+    // Increase max_tokens for demo
+    // max_tokens: 2048,
+  });
+  return completion!.data!.choices![0].text;
 }
-
-// askQuestion(medicalText, "Tl;dr").then(function(res) {console.log(res)}); console.log("\n");
 
 // ================== Part Two: Answering IPASS Questions ================== //
 
@@ -46,22 +46,85 @@ export async function askQuestion(longText: string, question: string){
 // Synthesis by Receiver
 // Make it so that we can dynamically ask questions
 
+const IPASSQuestions = [
+  "What was the illness severity?",
+  "Does this patient require more attention?",
+  "What were the events leading up to hospital admission?",
+  "List all the treatments that the patient was started on:",
+  "What might still need to be done?",
+  "Who should we contact?",
+  "Is there any treatment the patient should not be given?",
+  "Are any emergency scenarios likely?  What should be done in case of an emergency?",
+];
+
+export async function createHandoffReportText(
+  longText: string,
+  doctorName: string
+) {
+  let report: any = {};
+
+  report.title =
+    (await askQuestion(longText, "What is the patient's name?")) +
+    " Handoff Report";
+  report.date = new Date();
+  report.subtitle = `Handoff Report - ${doctorName}`;
+  report.summary = await askQuestion(longText, "Tl;dr");
+  report.I =
+    (await askQuestion(longText, IPASSQuestions[0])) +
+    "\n" +
+    (await askQuestion(longText, IPASSQuestions[1]));
+  report.P =
+    (await askQuestion(longText, IPASSQuestions[2])) +
+    "\n" +
+    (await askQuestion(longText, IPASSQuestions[3]));
+  report.A =
+    (await askQuestion(longText, IPASSQuestions[4])) +
+    "\n" +
+    (await askQuestion(longText, IPASSQuestions[5]));
+  report.S =
+    (await askQuestion(longText, IPASSQuestions[6])) +
+    "\n" +
+    (await askQuestion(longText, IPASSQuestions[7]));
+
+  return [report, report.title];
+}
+
 // ================== Part Three: Translating for Patient ================== //
 
 /**
  * translate :: String -> Promise<String>
  */
-export async function translate(summary: string, language: string){
-    const gptPrompt = "Translate this into " + language + ":\n\n" + summary;
-    const completion = await openai.createCompletion({
-        model: "text-davinci-002",
-        prompt: gptPrompt,
-        temperature: 0.1,
-        // Increase max_tokens for demo
-        // max_tokens: 2048,
-    })
-    return completion!.data!.choices![0].text;
+export async function translate(summary: string, language: string) {
+  const gptPrompt = "Translate this into " + language + ":\n\n" + summary;
+  const completion = await openai.createCompletion({
+    model: "text-davinci-002",
+    prompt: gptPrompt,
+    temperature: 0.1,
+    // Increase max_tokens for demo
+    // max_tokens: 2048,
+  });
+  return completion!.data!.choices![0].text;
 }
 
 // Broken below
 // translate(askQuestion(medicalText, "Tl;dr"), "Chinese").then(function(res) {console.log(res)});
+
+export async function createPatientReportText(
+  longText: string,
+  doctorName: string,
+  language?: string
+) {
+  let report: any = {};
+
+  report.title =
+    (await askQuestion(longText, "What is the patient's name?")) +
+    " Patient Summary";
+  report.date = new Date();
+  report.subtitle = `Patient Summary - ${doctorName}`;
+  report.summary = await askQuestion(longText, "Tl;dr");
+  if (language) {
+    report.translation = await translate(report.summary, language);
+  }
+
+  return report;
+}

@@ -12,11 +12,10 @@ export type FileType = {
   _id: string;
   name: string;
   created: Date;
-  owner: string;
+  owner: User;
   viewers: [string];
   type: string;
   data: string;
-  size: number;
 };
 
 export type Patient = {
