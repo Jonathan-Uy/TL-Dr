@@ -66,3 +66,6 @@ def write_translated_report(file_name, text_content):
     pdf.cell(0, 30, 'Translation', 0, 1)
     pdf.set_font('Times', '', 18)
     pdf.multi_cell(0, 8, text_content['translation'], 0, 1)
+
+    # Write to file
+    pdf.output(file_name, 'F')
