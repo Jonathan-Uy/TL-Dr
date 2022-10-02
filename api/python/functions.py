@@ -43,5 +43,4 @@ def grab_text(file_name):
 # We may choose to use an existing solution, or employ
 # heuristics specific to medical note formatting.
 def clean_up(dirty_text):
-    
     return clean(" ".join(dirty_text.split()))
