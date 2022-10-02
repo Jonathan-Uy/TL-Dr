@@ -4,7 +4,7 @@ import PyPDF2
 import os
 
 rel_path = os.path.realpath(os.path.join(os.path.dirname(__file__)\
-    , '..','..','samples','2.pdf'))
+    , '..','..','samples','1.pdf'))
 
 pdffileobj = open(rel_path,'rb')
 
@@ -18,4 +18,5 @@ text = pageobj.extractText()
 
 print(text)
 
+pdffileobj.close()
 
