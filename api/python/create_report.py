@@ -6,9 +6,6 @@ def write_report(file_name, text_content):
     pdf = FPDF()
     pdf.add_page()
 
-    pdf.add_font('DejaVu', '', './DejaVuSansCondensed.ttf', uni=True)
-    pdf.set_font('DejaVu', '', 14)
-
     # Create title and subtitle
     pdf.set_font('Times', 'B', 36)
     pdf.cell(0, 0, text_content['title'], 0, 1)
