@@ -1,10 +1,9 @@
 @echo off
 title Downloading modules for TL;Dr.
 cd ".\api\ts\"
+copy .env.example .env
 call npm install
-cd ..
-cd ..
-cd ".\app\"
+cd "..\..\app\"
 call npm install
 cd ..
 cls
