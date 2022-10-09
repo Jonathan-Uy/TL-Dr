@@ -1,13 +1,9 @@
 <a name="readme-top"></a>
-<br />
-<div align="center">
-  <h1 align="center">TL;Dr.</h1>
-  <p align="center">
-    TL;Dr. is a web application that helps summarize doctor notes to improve the patient handoff process, and to make discharge summaries more accessible to patients.
-  </p>
-  <br />
-</div>
 
+# TL;Dr.
+TL;Dr. is a web application that helps summarize doctor notes to improve the patient handoff process, and to make discharge summaries more accessible to patients.
+
+<br />
 <details>
   <summary>Table of Contents</summary>
   <ol>
