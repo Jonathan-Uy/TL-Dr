@@ -216,7 +216,7 @@ FileRouter.post("/email", async (req, res) => {
     ],
   };
 
-  transporter.sendMail(mailData, (error, response) => {
+  transporter.sendMail(mailData, (error: any, response: any) => {
     if (error) {
       console.log(error);
       res.status(500).send(error);
