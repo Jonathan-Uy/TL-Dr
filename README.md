@@ -1,7 +1,7 @@
 <a name="readme-top"></a>
 
 # TL;Dr.
-TL;Dr. is a web application that helps summarize doctor notes to improve the patient handoff process, and to make discharge summaries more accessible to patients.
+TL;Dr. is a web application that helps summarize doctor notes to improve the patient handoff process, and to make discharge summaries more accessible to patients. Created by Alex Yu, Jonathan Uy, Danny Foley, and Lincoln Saha as a submission for HackMIT 2022.
 
 <br />
 <details>
