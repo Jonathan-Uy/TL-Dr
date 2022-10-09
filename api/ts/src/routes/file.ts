@@ -75,7 +75,7 @@ FileRouter.post("/generate-handoff", async (req, res) => {
     req.user!.name
   );
 
-  console.log("report", reportData);
+  // console.log("report", reportData);
 
   const reportResponse = await axios.post(
     `${process.env.PYTHON_API_URL}/generate-handoff`,
