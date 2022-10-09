@@ -1,10 +1,10 @@
 import nodemailer from "nodemailer";
 
 export const transporter = nodemailer.createTransport({
-  port: 465,
-  host: "smtp.mail.yahoo.com",
+  port: Number(process.env.MAILER_PORT),
+  host: process.env.MAILER_HOST,
   auth: {
-    user: "alexjy@yahoo.com",
+    user: process.env.MAILER,
     pass: process.env.MAILER_PASSWORD,
   },
   secure: true,
