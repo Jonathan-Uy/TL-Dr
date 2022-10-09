@@ -29,7 +29,7 @@ TL;Dr. is a web application that helps summarize doctor notes to improve the pat
 
 ## About The Project
 
-![Screenshot](https://github.com/uyxela/hackmit2022/blob/main/samples/screenshot.png?raw=true)
+![Screenshot](https://github.com/Jonathan-Uy/TL-Dr/blob/main/samples/screenshot.png)
 
 TL;Dr. reduces medical error that occurs at handoff and discharge stages of patient care. It does this by standardizing and automating the reporting procedure to provide higher quality communication from doctor-to-doctor and doctor-to-patient.
 
@@ -61,7 +61,7 @@ Ensure that `node`, `npm`, and `python` are installed.
 
 1. Clone the repository.
    ```sh
-   git clone https://github.com/uyxela/hackmit2022.git
+   git clone https://github.com/Jonathan-Uy/TL-Dr.git
    ```
 2. Run the following command from the root directory.
    ```sh

@@ -1,5 +1,5 @@
 {
-  "name": "hackmit2022",
+  "name": "TL;Dr.",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/uyxela/hackmit2022.git"
+    "url": "git+https://github.com/Jonathan-Uy/TL-Dr.git"
   },
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/uyxela/hackmit2022/issues"
+    "url": "https://github.com/Jonathan-Uy/TL-Dr/issues"
   },
-  "homepage": "https://github.com/uyxela/hackmit2022#readme"
+  "homepage": "https://github.com/Jonathan-Uy/TL-Dr#readme"
 }
